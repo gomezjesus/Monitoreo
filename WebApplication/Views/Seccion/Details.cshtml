@@ -1,0 +1,38 @@
+﻿@model NewsModel.Seccion
+
+@{
+    if (Session["user"] == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Seccion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreSeccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreSeccion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Session["user"] != null)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SeccionID })
+    }
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

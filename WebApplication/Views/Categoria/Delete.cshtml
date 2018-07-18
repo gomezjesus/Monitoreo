@@ -1,0 +1,52 @@
+﻿@model MonitoreoModels.Categoria
+
+@{
+    var usuario = Session["user"] as MonitoreoModels.Usuario;
+    if (usuario == null || usuario.Rol != "A")
+    {
+        Response.Redirect("~/News/Index");
+    }       
+    ViewBag.Title = "Index";
+    if (usuario == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if (usuario.Rol == "A")
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutE.cshtml";
+    }
+    ViewBag.Title = "Eliminar";
+}
+    
+
+<h2>Eliminar</h2>
+
+<h3>¿Deseas borrar esta categoria?</h3>
+<div>
+    <h4>Categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NombreCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NombreCategoria)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar a lista", "Index")
+        </div>
+    }
+</div>

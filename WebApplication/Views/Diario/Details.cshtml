@@ -1,0 +1,39 @@
+﻿@model MonitoreoModels.DiarioImpreso
+
+@{
+    var usuario = Session["user"] as MonitoreoModels.Usuario;
+    if (usuario == null || usuario.Rol != "A")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Información</h2>
+
+<div>
+    <h4>Diario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Session["user"] != null)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.DiarioID })
+    }
+
+    @Html.ActionLink("Regresar a lista", "Index")
+</p>

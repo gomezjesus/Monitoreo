@@ -1,0 +1,124 @@
+﻿@model NewsModel.Nota
+@{
+    var usuario = Session["user"] as MonitoreoModels.Usuario;
+    if (usuario == null || usuario.Rol != "A")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }    
+    ViewBag.Title = "Index";
+    if (usuario == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if (usuario.Rol == "A")
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutE.cshtml";
+    }
+    ViewBag.Title = "Información";
+}
+<h2>Información</h2>
+    <h4>Nota</h4>
+    <hr />
+    <section class="container">
+        <div class="left-half">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Titulo)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Reportero)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Reportero)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Seccion)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Seccion)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Categoria)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Categoria)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Fecha)
+                </dd>
+                @if (usuario != null && usuario.Rol == "A")
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ubicacion)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ubicacion)
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.Relevancia)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Relevancia)
+                </dd>
+                @if (usuario != null && usuario.Rol == "A")
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Dimensiones)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Dimensiones)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Precio)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Precio)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Privacidad)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Privacidad)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tag)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Tag)
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.DiarioImpreso)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DiarioImpreso)
+                </dd>
+            </dl>
+        </div>
+        <div class="right-half" >
+            <img src="@Url.Content(Model.Archivo)" width="697" height="604" />
+        </div>
+        <div class="bottom">
+            <p>
+                @if (usuario != null && usuario.Rol == "A")
+                {
+                    @Html.ActionLink("Editar |", "Edit", new { id = Model.Notaid })
+                }
+
+                @Html.ActionLink(" Regresar a lista", "Index")
+            </p>
+        </div>
+    </section>
+
+    

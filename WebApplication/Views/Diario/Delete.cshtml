@@ -1,0 +1,47 @@
+﻿@model MonitoreoModels.DiarioImpreso
+
+@{
+    var usuario = Session["user"] as MonitoreoModels.Usuario;
+    if (usuario == null || usuario.Rol != "A")
+    {
+        Response.Redirect("~/News/Index");
+    }
+    if (Session["user"] == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Eliminar</h2>
+
+<h3>Deseas borrar este diario?</h3>
+<div>
+    <h4>Diario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.HiddenFor(model =>model.DiarioID)
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar a lista", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,134 @@
+﻿@model NewsModel.Nota
+
+@{
+    var usuario = Session["user"] as MonitoreoModels.Usuario;
+    if (usuario == null || usuario.Rol != "A")
+    {
+        Response.Redirect("~/News/Index");
+    }   
+    ViewBag.Title = "Index";
+    if (usuario == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if (usuario.Rol == "A")
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutE.cshtml";
+    }
+    ViewBag.Title = "Eliminar";
+}
+
+<h2>Delete</h2>
+
+<h3>¿Desea eliminar esta nota?</h3>
+<div>
+    <h4>Nota</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reportero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reportero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Seccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ubicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ubicacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Relevancia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Relevancia)
+        </dd>      
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dimensiones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dimensiones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Privacidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Privacidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiarioImpreso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiarioImpreso)
+        </dd>
+
+    </dl>
+    <div>
+        <img src="@Url.Content(Model.Archivo)" width="640" height="427" />
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar a lista", "Index")
+        </div>
+    }
+</div>

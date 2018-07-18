@@ -1,0 +1,92 @@
+﻿@model IEnumerable<NewsModel.Nota>
+
+@{
+
+    ViewBag.Title = "Index";
+    var usuario = Session["user"] as MonitoreoModels.Usuario;
+    ViewBag.Title = "Index";
+    if (usuario == null)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else if (usuario.Rol == "A")
+    {
+        Layout = "~/Views/Shared/_LayoutA.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutE.cshtml";
+    }
+}
+
+<h2>Notas</h2>
+
+<p>
+    @if (usuario != null && usuario.Rol == "A")
+    {@Html.ActionLink("Crear Nueva Nota", "Create")}
+</p>
+@{
+    string url = Request.Url.ToString();
+    if (!url.Contains("Find"))
+    {
+        @:<form method="post" action="News/Find" class="form-inline">
+            @:<label>Búsqueda</label>
+            @:<input type="search" class="form-control" name="tags" />
+            @:<input type="submit" value="Buscar" class="btn btn-default" />
+        @:</form>
+    }
+}
+
+<table class="table" style="margin-top:10px;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reportero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seccion)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.DiarioImpreso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reportero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Seccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiarioImpreso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @if (usuario != null && usuario.Rol == "A")
+                {
+                    @Html.ActionLink("Editar |", "Edit", new { id = item.Notaid })
+                    @Html.ActionLink(" Eliminar |", "Delete", new { id = item.Notaid })
+                }
+                @Html.ActionLink(" Detalles", "Details", new { id = item.Notaid })
+            </td>
+        </tr>
+    }
+
+</table>

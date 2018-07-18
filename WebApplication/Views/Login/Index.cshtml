@@ -1,0 +1,19 @@
+﻿@model MonitoreoModels.Usuario
+@{ 
+    ViewBag.Title = "Login";
+}
+    <div style="margin-top: 25px">
+        @using (Html.BeginForm("Enter", "Login", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(model => model.NombreUsuario)
+                @Html.EditorFor(model => model.NombreUsuario, new { htmlAttributes = new { @class = "form-control",placeholder = "Escribe tu usuario"} })               
+            </div>
+            <div class="form-group">              
+                @Html.LabelFor(model => model.Password)
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Contraseña", type="password" } })
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        }
+    </div>
